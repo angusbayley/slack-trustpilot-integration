@@ -4,8 +4,8 @@ require 'rest_client'
 require 'json'
 
 # Pull API key from the environment
-API_URL = "..."
-API_KEY = ENV['API_KEY_ID']
+API_URL = "https://hooks.slack.com"
+SLACK_PATH = ENV['SLACK_PATH']
 HEADERS = {
 }
 
@@ -18,6 +18,13 @@ get '/' do
 end
 
 # Trsutpilot Webhook
-get '/trustpilot-webhook' do
-  puts params
+post '/trustpilot-webhook' do
+  text = params["body-plain"]
+  payload = {
+  	"channel" => "#slack-testing",
+  	"username" => "pilot",
+  	"text" => text,
+  	"icon_emoji" => ":ghost:"
+  }
+  API[SLACK_PATH].post(payload.to_json)
 end
