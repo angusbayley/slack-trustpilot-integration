@@ -18,19 +18,54 @@ get '/' do
   erb :index
 end
 
-# Trsutpilot Webhook
+# Trustpilot Webhook
 post '/trustpilot-webhook' do
-  text = params["body-html"]
-  doc = Nokogiri::HTML(text)
-  new_doc = doc.xpath("//div//p").to_a
-  review = new_doc[1].to_s
-  review.sub!("<p>","").sub!("</p>","").strip!
-  puts review
+  html = params["body-html"]
+  doc = Nokogiri::HTML(html)
+  p_tags = doc.xpath("//div//p").to_a
+  a_tags = doc.xpath("//a").to_a
+  # puts a_tags
+  
+  message = p_tags[0].to_s
+  review = p_tags[1].to_s
+  link = a_tags[0].to_s
+  
+  message = format_message(message)
+  review = format_review(review)
+  link = format_link(link)  
+
+  puts link
+  
   payload = {
   	"channel" => "#slack-testing",
   	"username" => "slack-trustpilot-integration",
-  	"text" => review,
+  	"text" => message + "\n" + "\n" + review + "\n" + "\n" + link,
   	"icon_emoji" => ":ghost:"
   }
+
   API[SLACK_PATH].post(payload.to_json)
+end
+
+
+
+def format_message(message)
+  message = message.sub("<p>","").
+        sub("</p>","").
+        sub("<strong>","*").
+        sub("</strong>","*").
+        strip
+  message[0, message.index('<br>')]
+end
+
+def format_review(review)
+  review = review.sub("<p>","").
+        sub("</p>","").
+        strip
+  review.insert(0, '_"')
+  review.insert(review.length, '"_')
+end
+
+def format_link(link)
+  link.sub!('<a href="',"")
+  link = link[0, link.index('"')]
 end
