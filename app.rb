@@ -32,15 +32,13 @@ post '/trustpilot-webhook' do
   
   message = format_message(message)
   review = format_review(review)
-  link = format_link(link)  
-
-  puts link
+  link = format_link(link)
   
   payload = {
   	"channel" => "#slack-testing",
-  	"username" => "slack-trustpilot-integration",
+  	"username" => "Trustpilot",
   	"text" => message + "\n" + "\n" + review + "\n" + "\n" + link,
-  	"icon_emoji" => ":ghost:"
+  	"icon_emoji" => ":trustpilot:"
   }
 
   API[SLACK_PATH].post(payload.to_json)
@@ -68,4 +66,5 @@ end
 def format_link(link)
   link.sub!('<a href="',"")
   link = link[0, link.index('"')]
+  "<#{link}|see the review here>"
 end
