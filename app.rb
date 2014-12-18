@@ -7,6 +7,7 @@ require 'nokogiri'
 # Pull API key from the environment
 API_URL = "https://hooks.slack.com"
 SLACK_PATH = ENV['SLACK_PATH']
+SLACK_CHANNEL = ENV['SLACK_CHANNEL'] || "slack-testing"
 HEADERS = {
 }
 
@@ -35,7 +36,7 @@ post '/trustpilot-webhook' do
   link = format_link(link)
   
   payload = {
-  	"channel" => "#slack-testing",
+  	"channel" => "##{SLACK_CHANNEL}",
   	"username" => "Trustpilot",
   	"text" => message + "\n" + "\n" + review + "\n" + "\n" + link,
   	"icon_emoji" => ":trustpilot:"
