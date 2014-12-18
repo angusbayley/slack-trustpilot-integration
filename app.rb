@@ -21,20 +21,16 @@ end
 # Trsutpilot Webhook
 post '/trustpilot-webhook' do
   text = params["body-html"]
-  puts "Angus Bayley, wise sage."
-  puts "\n\n\n\n\n\n\n\n"
-  puts text
-  puts "\n\n\n\n\n\n\n\n"
-  puts "Angus Bayley, wise sage."
   doc = Nokogiri::HTML(text)
-  puts doc.xpath("//div")
-  puts "Angus, Wisest of sages"
+  new_doc = doc.xpath("//div//p").to_a
+  review = new_doc[1].to_s
+  review.sub!("<p>","").sub!("</p>","").strip!
+  puts review
   payload = {
   	"channel" => "#slack-testing",
   	"username" => "slack-trustpilot-integration",
-  	"text" => text,
+  	"text" => review,
   	"icon_emoji" => ":ghost:"
   }
-  #API[SLACK_PATH].post(payload.to_json)
-  puts "Angus, Sage, Much Wise"
+  API[SLACK_PATH].post(payload.to_json)
 end
