@@ -22,10 +22,13 @@ end
 # Trustpilot Webhook
 post '/trustpilot-webhook' do
   html = params["body-html"]
+
+  puts "HTML#######################################"
+  puts html
+  puts "HTML#######################################"
   doc = Nokogiri::HTML(html)
   p_tags = doc.xpath("//div//p").to_a
   a_tags = doc.xpath("//a").to_a
-  # puts a_tags
   
   message = p_tags[0].to_s
   review = p_tags[1].to_s
