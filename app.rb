@@ -45,6 +45,7 @@ post '/trustpilot-webhook' do
   	"icon_emoji" => ":trustpilot:"
   }
 
+  raise
   API[SLACK_PATH].post(payload.to_json)
 end
 
