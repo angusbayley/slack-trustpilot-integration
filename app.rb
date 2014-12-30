@@ -3,7 +3,7 @@ require 'sinatra'
 require 'json'
 require 'nokogiri'
 
-require_relative 'lib/slack_updater'
+require_relative 'lib/slack_notifier'
 require_relative 'lib/trustpilot_review'
 
 # Pull settings from the environment
@@ -19,7 +19,7 @@ end
 post '/trustpilot-webhook' do
   review = TrustPilotReview.new(params["body-html"])
 
-  slack_updater = SlackUpdater.new(path: SLACK_PATH, channel: SLACK_CHANNEL)
+  slack_updater = SlackNotifier.new(path: SLACK_PATH, channel: SLACK_CHANNEL)
   slack_updater.notify_of_review(review)
 
   # Raise so Mailgun will retry - lazy debugging
