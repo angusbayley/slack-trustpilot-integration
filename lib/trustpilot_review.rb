@@ -42,6 +42,8 @@ class TrustpilotReview
   end
 
   def format_quote(quote)
+    quote.gsub!(/\n\t/, " ")
+    quote.gsub!(/>\s*</, "><")
     quote = quote[quote.index("<br>") + "<br>".length, quote.length]
     quote = quote.sub("<br>", "*").
           sub("</p>", ".*").
