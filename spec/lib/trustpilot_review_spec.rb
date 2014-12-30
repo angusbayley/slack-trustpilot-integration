@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def load_fixture(filepath)
+  File.read(File.join("spec", "fixtures", filepath))
+end
+
 describe TrustpilotReview do
   let(:html) { load_fixture('review.html') }
   let(:review) { described_class.new(html) }
