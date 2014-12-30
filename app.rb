@@ -7,7 +7,7 @@ require_relative 'lib/slack_notifier'
 require_relative 'lib/trustpilot_review'
 
 # Pull settings from the environment
-SLACK_PATH = ENV['SLACK_PATH']
+SLACK_PATH = ENV['SLACK_PATH'] || ""
 SLACK_CHANNEL = ENV['SLACK_CHANNEL'] || "slack-testing"
 #
 # Index. Does nothing right now
@@ -17,7 +17,7 @@ end
 
 # Trustpilot Webhook
 post '/trustpilot-webhook' do
-  review = TrustPilotReview.new(params["body-html"])
+  review = TrustpilotReview.new(params["body-html"])
 
   slack_updater = SlackNotifier.new(path: SLACK_PATH, channel: SLACK_CHANNEL)
   slack_updater.notify_of_review(review)

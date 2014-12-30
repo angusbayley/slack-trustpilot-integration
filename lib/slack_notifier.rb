@@ -30,7 +30,7 @@ class SlackNotifier
     {
       channel: "##{@channel}",
       username: "Trustpilot",
-      text: "#{review.overview}\n\n#{review.body}\n\n#{review.link}",
+      text: "#{review.overview}\n\n#{review.quote}\n\n#{review.link}",
       icon_emoji: ":trustpilot:"
     }
   end
