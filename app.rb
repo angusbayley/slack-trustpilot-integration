@@ -17,11 +17,12 @@ end
 
 # Trustpilot Webhook
 post '/trustpilot-webhook' do
+  puts params["body-html"].inspect
   review = TrustpilotReview.new(params["body-html"])
 
   slack_updater = SlackNotifier.new(path: SLACK_PATH, channel: SLACK_CHANNEL)
   slack_updater.notify_of_review(review)
 
   # Raise so Mailgun will retry - lazy debugging
-  raise
+  #raise
 end

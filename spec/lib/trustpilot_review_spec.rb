@@ -35,6 +35,11 @@ describe TrustpilotReview do
       expect(quote).to include("Great for settling bills with friends")
       expect(quote).to include("I've used GoCardless several times to collect money for bills, IOUs, food runs etc with friends. Couldn't ask for a better product for the job.")
     end
+
+    it "formats the quote correctly" do
+      expect(quote).to start_with('_"*Great')
+      expect(quote).to end_with('"_')
+    end
   end
 
   describe "#link" do

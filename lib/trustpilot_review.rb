@@ -6,15 +6,18 @@ class TrustpilotReview
 
   def overview
     raw_overview = ptags[0].to_s
+    #puts "overview: #{format_overview(raw_overview)}"
     format_overview(raw_overview)
   end
 
   def quote
     raw_quote = ptags[0].to_s + ptags[1].to_s
+    puts "quote: #{format_quote(raw_quote)}".inspect
     format_quote(raw_quote)
   end
 
   def link
+    #puts "link: <#{link_url}|see the review here>"
     "<#{link_url}|see the review here>"
   end
 
@@ -33,6 +36,7 @@ class TrustpilotReview
   end
 
   def format_overview(overview)
+    #puts "raw_overview: #{overview}"
     overview = overview.sub("<p>","").
           sub("</p>","").
           sub("<strong>","*").
@@ -42,10 +46,13 @@ class TrustpilotReview
   end
 
   def format_quote(quote)
-    quote.gsub!(/\n\t/, " ")
-    quote.gsub!(/>\s*</, "><")
+    puts "raw_quote: #{quote}".inspect
+    quote.gsub!(/\n/, " ")      # removing line breaks
+    quote.gsub!(/\r/, "")       # removing other line breaks
+    quote.gsub!(/\t/, "")       # removing tabs
+    quote.gsub!("    ", "")     # removing tabs
     quote = quote[quote.index("<br>") + "<br>".length, quote.length]
-    quote = quote.sub("<br>", "*").
+    quote = quote.sub("<br> ", "*").
           sub("</p>", ".*").
           sub("<p>","").
           sub("</p>","").
