@@ -29,6 +29,7 @@ describe TrustpilotReview do
   end
 
   describe "#quote" do
+    let(:slack_quote) { load_fixture('review_1_slack_quote.txt') }
     subject(:quote) { review.quote }
 
     it "extracts the right quote" do
@@ -37,8 +38,12 @@ describe TrustpilotReview do
     end
 
     it "formats the quote correctly" do
-      expect(quote).to start_with('_"*Great')
+      expect(quote).to start_with('*Great')
       expect(quote).to end_with('"_')
+    end
+
+    it "is the same as the expected slack quote" do
+      expect(quote).to eq(slack_quote)
     end
   end
 

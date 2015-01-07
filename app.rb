@@ -17,7 +17,6 @@ end
 
 # Trustpilot Webhook
 post '/trustpilot-webhook' do
-  puts params["body-html"].inspect
   review = TrustpilotReview.new(params["body-html"])
 
   slack_updater = SlackNotifier.new(path: SLACK_PATH, channel: SLACK_CHANNEL)

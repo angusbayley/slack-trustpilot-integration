@@ -47,18 +47,16 @@ class TrustpilotReview
 
   def format_quote(quote)
     puts "raw_quote: #{quote}".inspect
-    quote.gsub!(/\n/, " ")      # removing line breaks
-    quote.gsub!(/\r/, "")       # removing other line breaks
-    quote.gsub!(/\t/, "")       # removing tabs
-    quote.gsub!("    ", "")     # removing tabs
-    quote = quote[quote.index("<br>") + "<br>".length, quote.length]
-    quote = quote.sub("<br> ", "*").
-          sub("</p>", ".*").
+    quote = quote.gsub(/\r/, "").                 # removing other line breaks
+            gsub(/\t/, "").gsub("    ", "")       # removing tabs
+    quote = quote[quote.index("<br>") + "<br>".length..-1]
+    quote_title = "*#{quote["<br>\n\n".length..quote.index("</p>")-1]}*"
+    quote_body = quote[quote.index("</p>") + "</p><p>\n".length..-1].
           sub("<p>","").
           sub("</p>","").
           strip
-    quote.insert(0, '_"')
-    quote.insert(quote.length, '"_')
+    quote_body = "\"#{quote_body}\"".split("\n").map { |paragraph| (paragraph=="" ? "#{paragraph}" : "_#{paragraph}_") }.join("\n").strip
+    quote_title + "\n" + quote_body
   end
 
   def format_link(link)
