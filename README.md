@@ -8,11 +8,11 @@ Prerequisites:
 - a [Mailgun](https://mailgun.com) account (free tier is fine)
 - [ngrok](https://ngrok.com/download)
 
-    git clone REPO_URL
-    cd REPO
-    bundle install
-    ngrok 4567
-    SLACK_PATH=x SLACK_CHANNEL=y bundle exec ruby app.rb
+    `git clone REPO_URL`
+    `cd REPO`
+    `bundle install`
+    `ngrok 4567`
+    `SLACK_PATH=x SLACK_CHANNEL=y bundle exec ruby app.rb`
 
 ...where:
 x = everything after `https://hooks.slack.com` in your Slack webhook URL
