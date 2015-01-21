@@ -5,8 +5,8 @@ Posts new Trustpilot reviews to GoCardless's #general room in Slack for all to s
 ## Running Locally
 
 Prerequisites:
-- a (Mailgun)[https://mailgun.com] account (free tier is fine)
-- (ngrok)[https://ngrok.com/download]
+- a [Mailgun](https://mailgun.com) account (free tier is fine)
+- [ngrok](https://ngrok.com/download)
 
     git clone REPO_URL
     cd REPO
