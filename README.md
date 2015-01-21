@@ -20,6 +20,7 @@ Then...
 ...where:
 
 `x` = everything after `https://hooks.slack.com` in your Slack webhook URL
+
 `y` = the name of the channel you want to post to in Slack.
 
 Redirect your Trustpilot review emails to Mailgun (we use a Gmail filter*), and set up a route in Mailgun to forward it to your ngrok instance's URL + `/trustpilot-webhook`.
