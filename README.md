@@ -11,9 +11,13 @@ Prerequisites:
 
 
     `git clone REPO_URL`
+
     `cd REPO`
+    
     `bundle install`
+    
     `ngrok 4567`
+    
     `SLACK_PATH=x SLACK_CHANNEL=y bundle exec ruby app.rb`
 
 ...where:
