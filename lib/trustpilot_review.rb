@@ -1,3 +1,9 @@
+#require 'rest_client'
+#require 'httpclient'
+require 'open-uri'
+require 'open_uri_redirections'
+
+
 # Generates a trust pilot review from HTML
 class TrustpilotReview
   def initialize(html)
@@ -29,7 +35,15 @@ class TrustpilotReview
   end
 
   def link_url
-    format_link(atags[0].to_s)
+    review_private_url = format_link(atags[0].to_s)
+
+    review_public_base_url = "https://www.trustpilot.co.uk/review/gocardless.com/"
+
+    open(review_private_url, :allow_redirections => :safe) do |resp|
+      response = resp.base_uri.to_s
+      review_id = response.split('reviews%2f')[1]
+      review_public_url = review_public_base_url + review_id
+    end
   end
 
   def format_overview(overview)

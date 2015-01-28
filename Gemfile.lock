@@ -12,16 +12,17 @@ GEM
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     mime-types (2.4.3)
-    mini_portile (0.6.1)
+    mini_portile (0.6.2)
     netrc (0.7.9)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    open_uri_redirections (0.2.1)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
-    rest_client (1.8.2)
+    rest_client (1.8.3)
       netrc (~> 0.7.7)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
@@ -53,6 +54,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   nokogiri (= 1.6.5)
+  open_uri_redirections
   rest_client
   rspec
   sinatra

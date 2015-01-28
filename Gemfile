@@ -6,3 +6,4 @@ gem "nokogiri", "1.6.5"
 gem "rspec"
 gem "capybara"
 gem 'webmock'
+gem 'open_uri_redirections'
